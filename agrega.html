@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width">
+ <title>Agregar Cita</title>
+ <script type="module" src="lib/js/submitForm.js"></script>
+ <script type="module" src="lib/js/muestraError.js"></script>
+</head>
+
+<body>
+
+ <form onsubmit="submitForm('srv/pasatiempo-agrega.php', event)
+    .then(modelo => location.href = 'index.html')
+    .catch(muestraError)">
+
+  <h1>Agregar Cita</h1>
+
+  <p><a href="index.html">Cancelar</a></p>
+
+  <p>
+   <label>
+    Fecha *
+    <input name="fecha" type="date">
+   </label>
+  </p>
+
+  <p>
+   <label>
+    Hora *
+    <input name="hora" type="time">
+   </label>
+  </p>
+
+  <p>
+   <label>
+    Estado *
+    <select name="estado">
+      <option value="PENDIENTE">PENDIENTE</option>
+      <option value="ATENDIDO">ATENDIDO</option>
+      <option value="CANCELADO">CANCELADO</option>
+    </select>
+   </label>
+  </p>
+
+  <p>* Obligatorio</p>
+
+  <p><button type="submit">Agregar</button></p>
+
+ </form>
+
+</body>
+
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width">
+ <title>Modificar Cita</title>
+
+ <script type="module" src="lib/js/consumeJson.js"></script>
+ <script type="module" src="lib/js/submitForm.js"></script>
+ <script type="module" src="lib/js/muestraObjeto.js"></script>
+ <script type="module" src="lib/js/muestraError.js"></script>
+
+ <script>
+  const params = new URL(location.href).searchParams
+ </script>
+
+</head>
+
+<body onload="if (params.size > 0) {
+   consumeJson('srv/pasatiempo.php?' + params)
+    .then(respuesta => muestraObjeto(forma, respuesta.body))
+    .catch(muestraError)
+  }">
+
+ <form id="forma" onsubmit="submitForm('srv/pasatiempo-modifica.php', event)
+    .then(respuesta => location.href = 'index.html')
+    .catch(muestraError)">
+
+  <h1>Modificar Cita</h1>
+
+  <p><a href="index.html">Cancelar</a></p>
+
+  <input name="id" type="hidden">
+
+  <p>
+   <label>
+    Fecha *
+    <input name="fecha" value="Cargando&hellip;" type="date">
+   </label>
+  </p>
+
+  <p>
+   <label>
+    Hora *
+    <input name="hora" value="Cargando&hellip;" type="time">
+   </label>
+  </p>
+
+  <p>
+   <label>
+    Estado *
+    <select name="estado">
+      <option value="PENDIENTE">PENDIENTE</option>
+      <option value="ATENDIDO">ATENDIDO</option>
+      <option value="CANCELADO">CANCELADO</option>
+    </select>
+   </label>
+  </p>
+
+  <p>* Obligatorio</p>
+
+  <p>
+
+   <button type="submit">Guardar</button>
+
+   <button type="button" onclick="
+     if (params.size > 0 && confirm('Confirma la eliminación')) {
+      consumeJson('srv/pasatiempo-elimina.php?' + params)
+       .then(() => location.href = 'index.html')
+       .catch(muestraError)
+     }">
+    Eliminar
+   </button>
+
+  </p>
+
+ </form>
+
+</body>
+
+</html>
